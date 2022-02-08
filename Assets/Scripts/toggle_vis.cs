@@ -23,7 +23,6 @@ public class toggle_vis : MonoBehaviour
     void Start()
     {
     }
-
     void Update ()
     {
         KeyCode kcode;

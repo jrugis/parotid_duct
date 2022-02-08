@@ -11,16 +11,13 @@ public class move: MonoBehaviour
     void Start()
     {
     }
-
     void Update ()
-    {  
-        if (Input.GetKeyDown (KeyCode.C))
-        {  
-            transform.localPosition /= 1.1F; // move in
-        }      
-        else if (Input.GetKeyDown (KeyCode.F))
-        {  
-            transform.localPosition *= 1.1F; // move out
+    {
+        if (!Input.GetKey (KeyCode.LeftShift)) return;  
+        if (Input.GetMouseButton(0))
+        {
+            float v = 0.5F * Input.GetAxis("Mouse Y");
+            transform.localPosition += v * Vector3.back;
         }
     }  
 }
