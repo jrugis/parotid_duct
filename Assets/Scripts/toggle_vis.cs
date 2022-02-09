@@ -1,6 +1,6 @@
 ﻿/*
 Parotid Simulation 
-Attach this to an object.
+Attach this to a cells prefab object.
 */
 using System;
 using System.Text;
@@ -11,10 +11,10 @@ public class toggle_vis : MonoBehaviour
 {
     Dictionary<char, KeyCode> chartoKeycode = new Dictionary<char, KeyCode>()
     {
-        {'i', KeyCode.I},
-        {'s', KeyCode.S},
-        {'1', KeyCode.Alpha1},
-        {'2', KeyCode.Alpha2},
+        {'i', KeyCode.I},        // intercalated cells
+        {'s', KeyCode.S},        // striated cells
+        {'1', KeyCode.Alpha1},   // acinus cells
+        {'2', KeyCode.Alpha2},   // ...
         {'3', KeyCode.Alpha3},
         {'4', KeyCode.Alpha4},
         {'5', KeyCode.Alpha5},
@@ -26,9 +26,8 @@ public class toggle_vis : MonoBehaviour
     void Update ()
     {
         KeyCode kcode;
-        char c = this.name[0];
-        if (c == 'a') c = this.name[1];
-
+        char c = this.name[0];            // get the first letter of the object's name,
+        if (c == 'a') c = this.name[1];   //   but for acinii, get the second letter  
         if (chartoKeycode.TryGetValue(c, out kcode))
         {
             if (Input.GetKeyDown (kcode))
@@ -37,8 +36,5 @@ public class toggle_vis : MonoBehaviour
                 foreach (Renderer rend in renders) rend.enabled = !rend.enabled;
             }
         }
-
-
-
     }
 }

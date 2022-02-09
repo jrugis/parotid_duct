@@ -1,6 +1,6 @@
 ﻿/*
 Parotid Simulation 
-Attach this to an object.
+Attach this to a MiniGland object.
 */
 using System;
 using System.Text;
@@ -16,10 +16,8 @@ public class spin: MonoBehaviour
         if (Input.GetKey (KeyCode.LeftShift)) return;  
         if (Input.GetMouseButton(0))
         {
-            float multiplier = 5.0F;
-            float h = multiplier * Input.GetAxis("Mouse X");
-            float v = multiplier * Input.GetAxis("Mouse Y");
-            transform.localRotation = Quaternion.Euler(v, -h, 0) * transform.localRotation;
+            transform.RotateAround(Vector3.zero, Vector3.up, -5.0F * Input.GetAxis("Mouse X"));
+            transform.RotateAround(Vector3.zero, Vector3.right, 5.0F * Input.GetAxis("Mouse Y"));
         }
     }  
 }

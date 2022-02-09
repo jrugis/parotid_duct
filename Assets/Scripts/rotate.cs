@@ -9,9 +9,9 @@ using UnityEngine;
 public class rotate : MonoBehaviour {
 
     // Use this for initialization
-    void Start () {
+    void Start () 
+    {
         enabled = false;
-
     }
 
     // Update is called once per frame
