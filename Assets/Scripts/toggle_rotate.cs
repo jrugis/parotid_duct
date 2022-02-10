@@ -19,5 +19,4 @@ public class toggle_rotate : MonoBehaviour
             GetComponent<rotate>().enabled = !GetComponent<rotate>().enabled;
         }      
     }  
-
 }
