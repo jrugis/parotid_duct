@@ -154,7 +154,7 @@ public class compartments : MonoBehaviour
         {
             points[d].position = disc_centers[d];
             points[d].startColor = new Color(0f, 1f, 0f);
-            points[d].startSize = 1.0f;
+            points[d].startSize = 8.0f;
         }
     }
 
@@ -189,3 +189,10 @@ public class compartments : MonoBehaviour
         //if (mini_gland.GetComponent<toggle_sim>().simulate) move_particle_pos();
     }
 }
+/*
+    if (Selection.activeGameObject != null && Selection.activeGameObject.TryGetComponent(out MeshFilter meshFilter)) {
+         GameObject obj = new GameObject("obj");
+         obj.AddComponent<MeshRenderer>().sharedMaterials = meshFilter.GetComponent<MeshRenderer>().sharedMaterials;
+         obj.AddComponent<MeshFilter>().sharedMesh = Instantiate(meshFilter.sharedMesh);
+     }
+*/
