@@ -134,6 +134,7 @@ GameObject:
   - component: {fileID: 47661389}
   - component: {fileID: 47661388}
   - component: {fileID: 47661387}
+  - component: {fileID: 47661391}
   m_Layer: 0
   m_Name: MiniGland
   m_TagString: Untagged
@@ -206,6 +207,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   simulate: 0
+--- !u!114 &47661391
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 47661385}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3087a78c77a6b4ae7bf3f9e895268cbc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  path: _4Unity_duct.bin
+  ndiscs: 0
+  disc_centers: []
+  disc_diameters: []
+  disc_lengths: []
+  disc_dirs: []
 --- !u!1 &112765894 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 4a513eda69fe0486693f6888aea621dd,
@@ -230,6 +249,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f6ffe4318712e4fb1839c416d8358f26, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  kcode: 49
   state: 0
 --- !u!1 &119408574
 GameObject:
@@ -366,6 +386,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f6ffe4318712e4fb1839c416d8358f26, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  kcode: 105
   state: 0
 --- !u!1001 &296016598
 PrefabInstance:
@@ -586,8 +607,10 @@ MonoBehaviour:
       m_Calls: []
   m_text: "Key Commands:\n    1-6  cycle visibility acinii\n    b  cycle background
     color\n    d  cycle visibility duct\n    h  toggle help\n    i   cycle visibility
-    intercalated cells\n    r   toggle rotate\n    s  cycle visibility striated cells\n\nMouse
-    Commands:\n    drag to spin MiniGland\n    left-shift drag to zoom\n\n\n"
+    intercalated cells\n    r   toggle rotate\n    s  cycle visibility striated cells\n   
+    v  cycle visibility virtual duct\n    <space> toggle simulation\n \n\nMouse Commands:\n   
+    left_button drag to spin MiniGland\n    right_button drag to move MiniGland\n   
+    left_shift + right_button vertical_drag to zoom\n\n\n"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1102,6 +1125,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f6ffe4318712e4fb1839c416d8358f26, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  kcode: 52
   state: 0
 --- !u!4 &816710227 stripped
 Transform:
@@ -1133,6 +1157,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f6ffe4318712e4fb1839c416d8358f26, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  kcode: 51
   state: 0
 --- !u!1 &963194225
 GameObject:
@@ -1431,6 +1456,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f6ffe4318712e4fb1839c416d8358f26, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  kcode: 54
   state: 0
 --- !u!1 &1221265138
 GameObject:
@@ -1443,7 +1469,7 @@ GameObject:
   - component: {fileID: 1221265139}
   - component: {fileID: 1221265140}
   m_Layer: 0
-  m_Name: duct_inner
+  m_Name: inner_duct
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1476,6 +1502,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f6ffe4318712e4fb1839c416d8358f26, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  kcode: 100
   state: 0
 --- !u!1 &1391522710 stripped
 GameObject:
@@ -1501,6 +1528,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f6ffe4318712e4fb1839c416d8358f26, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  kcode: 115
   state: 0
 --- !u!1 &1434736827 stripped
 GameObject:
@@ -1526,6 +1554,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f6ffe4318712e4fb1839c416d8358f26, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  kcode: 53
   state: 0
 --- !u!1001 &1470620675
 PrefabInstance:
@@ -1614,6 +1643,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f6ffe4318712e4fb1839c416d8358f26, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  kcode: 50
   state: 0
 --- !u!1 &1631694688
 GameObject:
@@ -1957,6 +1987,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2145712349}
   - component: {fileID: 2145712350}
+  - component: {fileID: 2145712351}
   m_Layer: 0
   m_Name: virtual_duct
   m_TagString: Untagged
@@ -1991,3 +2022,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   disc: {fileID: 3980016476658343643, guid: 98545c7334d694c6b930f1b6a2d62e33, type: 3}
+  _tstep: 0
+  _deltaTime: 0.1
+--- !u!114 &2145712351
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2145712348}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f6ffe4318712e4fb1839c416d8358f26, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  kcode: 118
+  state: 2

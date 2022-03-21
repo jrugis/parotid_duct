@@ -11,11 +11,11 @@ public class background : MonoBehaviour
     int color_state = 0;
     Color[] bcolors = 
     {
-         new Color(0.0f, 0.0f, 0.0f, 1.0f),
-         new Color(0.15f, 0.15f, 0.15f, 1.0f),
-         new Color(0.3f, 0.3f, 0.3f, 1.0f),
-         new Color(0.68f, 0.68f, 0.68f, 1.0f),
-         new Color(1.0f, 1.0f, 1.0f, 1.0f)
+         new Color(0.0F, 0.0F, 0.0F, 1.0f),
+         new Color(0.15F, 0.15F, 0.15F, 1.0f),
+         new Color(0.3F, 0.3F, 0.3F, 1.0f),
+         new Color(0.68F, 0.68F, 0.68F, 1.0f),
+         new Color(1.0F, 1.0F, 1.0F, 1.0f)
     };
     // Start is called before the first frame update
     void Start()

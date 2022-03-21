@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 5589459251403221564}
   - component: {fileID: 302664765972297799}
   - component: {fileID: 388288455092951504}
+  - component: {fileID: 640614822519059032}
   m_Layer: 0
   m_Name: disc
   m_TagString: Untagged
@@ -59,7 +60,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 85ab5ecf4f9884bf9b0424725aa0b467, type: 2}
+  - {fileID: 2100000, guid: 3dd610c8cedcf4ccdaee1f6de9e52710, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -94,3 +95,17 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
+--- !u!114 &640614822519059032
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3980016476658343643}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 194641d7e3f7d4d099f2453a50237c4a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _disc_id: 0
+  _flow_data: []
