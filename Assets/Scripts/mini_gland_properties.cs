@@ -2,8 +2,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
-using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class mini_gland_properties : MonoBehaviour
 {
@@ -23,7 +23,7 @@ public class mini_gland_properties : MonoBehaviour
     public float deltaTime;          // data update period
     public float targetTime;         // initial short startup delay
     public float simTime;            // simulation time 
-    TextMeshProUGUI mText;           // simulation time display text
+    private Text tText;           // simulation time display text
  
     // data file access functions
     private Int32 get_count(FileStream fs)
@@ -91,7 +91,7 @@ public class mini_gland_properties : MonoBehaviour
         fs.Close();
 
         // get the simulation time display component 
-        mText = GameObject.Find("time_display").GetComponent<TMPro.TextMeshProUGUI>();
+        tText = GameObject.Find("time_display").GetComponent<Text>();
      }
    
     // simulation time stepping
@@ -112,7 +112,7 @@ public class mini_gland_properties : MonoBehaviour
                 if (tstep >= tsteps) tstep -= tsteps;
                 var sec = simTime % 60;
                 var min = Math.Floor(simTime / 60);
-                mText.text = min.ToString("0#") + ":" + sec.ToString("0#.00") + "\nmm:ss.ss";
+                tText.text = min.ToString("0#") + ":" + sec.ToString("0#.00") + "\nmm:ss.ss";
             } 
         } 
     }

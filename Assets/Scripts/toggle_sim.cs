@@ -7,10 +7,7 @@ using UnityEngine;
 public class toggle_sim : MonoBehaviour
 {
     public bool simulate;
-    private void toggle()
-    {
-        simulate = !simulate;
-    }
+
     void Start()
     {
         simulate = false;
@@ -18,6 +15,6 @@ public class toggle_sim : MonoBehaviour
 
     void Update ()
     {  
-        if (Input.GetKeyDown (KeyCode.Space)) toggle();
+        if (Input.GetKeyDown (KeyCode.Space)) simulate = !simulate;
     }  
 }

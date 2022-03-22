@@ -1,14 +1,19 @@
 ﻿using System;
 using System.Text;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class spin: MonoBehaviour
 {
+    private EventSystem event_system;
     void Start()
     {
+        event_system = GameObject.Find("EventSystem").GetComponent<EventSystem>();
     }
     void Update ()
     {
+        //if (event_system.IsPointerOverGameObject()) return;        // blocks spinning over text
+        if (event_system.currentSelectedGameObject != null) return;  // blocks spinning over slider
         if (Input.GetKey (KeyCode.LeftShift)) return;  
         if (Input.GetMouseButton(0))
         {
