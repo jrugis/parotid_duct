@@ -1,8 +1,0 @@
-virtual_duct
-  Add Compnent - Effects | Particle System
-    Particle System | Renderer - Render Mode | Billboard
-
-
-
-
-- check material "mat.001.mat"

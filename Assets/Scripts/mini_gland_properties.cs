@@ -2,19 +2,30 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using TMPro;
 using UnityEngine;
 
 public class mini_gland_properties : MonoBehaviour
 {
     public string path;  // the simulation data file
+
+    // duct data variables
     public int ndiscs;               // number of duct discs           
     public Vector3[] disc_centers;   // disc centers
     public float[] disc_diameters;   // disc diameters
     public float[] disc_lengths;     // disc lengths
     public Vector3[] disc_dirs;      // disc direction vectors
-    private int tsteps;              // simulation data time steps
-    public float[] flow_rates;       // simulation flow rate per disc
+    public float[,] flow_rates;      // simulation flow rate per disc
+
+    // simulation stepping variables
+    public int tstep;                // current data time step
+    public int tsteps;               // total number of data time steps
+    public float deltaTime;          // data update period
+    public float targetTime;         // initial short startup delay
+    public float simTime;            // simulation time 
+    TextMeshProUGUI mText;           // simulation time display text
  
+    // data file access functions
     private Int32 get_count(FileStream fs)
     {
         int bytes = 4;   // for 32 bit integer
@@ -56,19 +67,19 @@ public class mini_gland_properties : MonoBehaviour
         Buffer.BlockCopy(byte_array, 0, float_array, 0, bytes);
         return(float_array);
     }
-
+    
+    // Note: Awake functions are executed before any Start functions
      void Awake()
      {
         if (!File.Exists(path))
         {
-            Debug.Log(path + " not found.");
+            Debug.Log("Data file " + path + " not found.");
             Application.Quit();
         }
 
         // read in virtual duct structural data
         FileStream fs = new FileStream(path, FileMode.Open);
         ndiscs = get_count(fs);                      // number of duct discs           
-        Debug.Log("duct discs: " + ndiscs.ToString());
         disc_centers = get_coordinate(fs, ndiscs);   // disc centers
         disc_diameters = get_floats(fs, ndiscs);     // disc diameters
         disc_lengths = get_floats(fs, ndiscs);       // disc lengths
@@ -76,19 +87,33 @@ public class mini_gland_properties : MonoBehaviour
 
         // get the simulation data
         tsteps = get_count(fs); // simulation data time steps
-        tsteps = 5000; // *********** TEMPORARY ************
-        Debug.Log("duct time steps: " + tsteps.ToString());
-        flow_rates = get_floats(fs, ndiscs);
+        flow_rates = get_float_array(fs, tsteps, ndiscs);
         fs.Close();
+
+        // get the simulation time display component 
+        mText = GameObject.Find("time_display").GetComponent<TMPro.TextMeshProUGUI>();
      }
-
-    // Start is called before the first frame update
-    void Start()
+   
+    // simulation time stepping
+     void Update()
     {
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
+        float currentTime = Time.fixedTime;
+        if (currentTime > targetTime)
+        {
+            if (tstep >= 5000) deltaTime = 1.0F;  // HARD CODED, NOT GOOD !!!!!!!!!!!
+            else deltaTime = 0.1F;                // --------------------------------
+            int steps = 1 + (int)((currentTime - targetTime) / deltaTime);
+            if (steps > 1) Debug.Log("MiniGland: frame rate too slow");
+            targetTime += deltaTime * steps;
+            if (this.GetComponent<toggle_sim>().simulate)
+            {
+                simTime += deltaTime * steps;
+                tstep += steps;
+                if (tstep >= tsteps) tstep -= tsteps;
+                var sec = simTime % 60;
+                var min = Math.Floor(simTime / 60);
+                mText.text = min.ToString("0#") + ":" + sec.ToString("0#.00") + "\nmm:ss.ss";
+            } 
+        } 
     }
 }

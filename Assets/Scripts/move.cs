@@ -1,5 +1,4 @@
 ﻿/*
-Parotid Simulation 
 Attach this to a Camera object.
 */
 using System;
