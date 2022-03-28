@@ -16,10 +16,7 @@ public class background : MonoBehaviour
          new Color(0.68F, 0.68F, 0.68F, 1.0f),
          new Color(1.0F, 1.0F, 1.0F, 1.0f)
     };
-    // Start is called before the first frame update
-    void Start()
-    {
-    }
+
     // Update is called once per frame
     void Update()
     {

@@ -9,9 +9,7 @@ public class cycle_vis : MonoBehaviour
     public KeyCode kcode = KeyCode.X; // set this in each object's GUI
     public enum States {opaque, transparent, hidden, number_of_states};
     public States state;
-    void Start()
-    {
-    }
+
     void Update ()
     {
     Color color;

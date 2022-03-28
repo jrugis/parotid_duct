@@ -7,7 +7,7 @@ using UnityEngine;
 public class discs : MonoBehaviour
 {
     public GameObject disc;           // the object to clone
-     void Start()   
+    void Start()   
     {
         // get terse references to relevant data from MiniGland object
         var mini_gland = GameObject.Find("MiniGland");
@@ -16,7 +16,7 @@ public class discs : MonoBehaviour
         var disc_centers = mini_gland.GetComponent<mini_gland_properties>().disc_centers;
         var disc_dirs = mini_gland.GetComponent<mini_gland_properties>().disc_dirs;
         var disc_diameters = mini_gland.GetComponent<mini_gland_properties>().disc_diameters;
-        var flow_rates = mini_gland.GetComponent<mini_gland_properties>().flow_rates;
+        var dyn_data = mini_gland.GetComponent<mini_gland_properties>().dyn_data;
 
         // create the disc objects
         float scale = 0.01F; 
@@ -37,12 +37,6 @@ public class discs : MonoBehaviour
             Renderer rend = obj.GetComponent<Renderer>();
             rend.material.mainTextureOffset = new Vector2(UnityEngine.Random.Range(0, Mathf.PI), UnityEngine.Random.Range(0, Mathf.PI));
             rend.enabled = false;  // start hidden
-
-            // copy associated flow velocity to disc object
-            float[] flow = new float[tsteps];                                     // flow velocity
-            float area = Mathf.PI * disc_diameters[d] * disc_diameters[d] / 4.0F;  // disc cross-section area
-            for (int t = 0; t < tsteps; t++) flow[t] = flow_rates[t,d] / area;     // convert flow rate to velocity
-            obj.GetComponent<disc_properties>().flow_velocity = flow;
         }
     }
 }

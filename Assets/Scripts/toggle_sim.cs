@@ -4,6 +4,7 @@ Attach this to a MiniGland object.
 using System;
 using System.Text;
 using UnityEngine;
+
 public class toggle_sim : MonoBehaviour
 {
     public bool simulate;

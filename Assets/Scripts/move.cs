@@ -7,9 +7,6 @@ using UnityEngine;
 
 public class move: MonoBehaviour
 {
-    void Start()
-    {
-    }
     void Update ()
     {
         if (Input.GetKey (KeyCode.LeftShift) & Input.GetMouseButton(0))

@@ -9,22 +9,29 @@ public class mini_gland_properties : MonoBehaviour
 {
     public string path;  // the simulation data file
 
-    // duct data variables
+    // duct fixed data
     public int ndiscs;               // number of duct discs           
     public Vector3[] disc_centers;   // disc centers
     public float[] disc_diameters;   // disc diameters
     public float[] disc_lengths;     // disc lengths
     public Vector3[] disc_dirs;      // disc direction vectors
-    public float[,] flow_rates;      // simulation flow rate per disc
 
-    // simulation stepping variables
-    public int tstep;                // current data time step
-    public int tsteps;               // total number of data time steps
-    public float deltaTime;          // data update period
-    public float targetTime;         // initial short startup delay
-    public float simTime;            // simulation time 
-    private Text tText;           // simulation time display text
- 
+    // simulation time stepping data
+    public int tsteps;            // total number of data time steps
+    public int tstep;             // current time step
+    public float[] sTimes;        // simulation time at each step
+    public float simTime;         // current simulation time 
+    private Text tText;           // simulation time display
+
+    // duct dynamic data
+    private FileStream fs;
+    private long data_head;       // data head file position
+    public int nvals;             // number simulated values
+    public float[] min_vals;      // minimum data values    
+    public float[] max_vals;      // maximum data values    
+    public float[] dyn_data;      // simulation values in the current time step
+    private Text fText;           // flow rate display
+
     // data file access functions
     private Int32 get_count(FileStream fs)
     {
@@ -77,43 +84,52 @@ public class mini_gland_properties : MonoBehaviour
             Application.Quit();
         }
 
-        // read in virtual duct structural data
-        FileStream fs = new FileStream(path, FileMode.Open);
+        // read in duct fixed data
+        fs = new FileStream(path, FileMode.Open);
         ndiscs = get_count(fs);                      // number of duct discs           
         disc_centers = get_coordinate(fs, ndiscs);   // disc centers
         disc_diameters = get_floats(fs, ndiscs);     // disc diameters
         disc_lengths = get_floats(fs, ndiscs);       // disc lengths
         disc_dirs = get_coordinate(fs, ndiscs);      // disc direction vectors
 
-        // get the simulation data
-        tsteps = get_count(fs); // simulation data time steps
-        flow_rates = get_float_array(fs, tsteps, ndiscs);
-        fs.Close();
+        // read in simulation data
+        tsteps = get_count(fs);              // time steps
+        sTimes = get_floats(fs, tsteps);     // simulation times
+        nvals = get_count(fs);               // simulated values
+        //min_vals = get_floats(fs, nvals);  // min vals
+        //max_vals = get_floats(fs, nvals);  // max vals
 
-        // get the simulation time display component 
+        // read initial dynamic data
+        data_head = fs.Position;
+        dyn_data = get_floats(fs, nvals);
+        tstep = 0;
+        simTime = sTimes[0];
+
+        // get display components 
         tText = GameObject.Find("time_display").GetComponent<Text>();
+        fText = GameObject.Find("flow_display").GetComponent<Text>();
+        fText.text = "fluid flow: " + string.Format("{0,4:####}", dyn_data[0]) + " um3/s";
      }
    
     // simulation time stepping
      void Update()
     {
-        float currentTime = Time.fixedTime;
-        if (currentTime > targetTime)
+        if (this.GetComponent<toggle_sim>().simulate)
         {
-            if (tstep >= 5000) deltaTime = 1.0F;  // HARD CODED, NOT GOOD !!!!!!!!!!!
-            else deltaTime = 0.1F;                // --------------------------------
-            int steps = 1 + (int)((currentTime - targetTime) / deltaTime);
-            if (steps > 1) Debug.Log("MiniGland: frame rate too slow");
-            targetTime += deltaTime * steps;
-            if (this.GetComponent<toggle_sim>().simulate)
-            {
-                simTime += deltaTime * steps;
-                tstep += steps;
-                if (tstep >= tsteps) tstep -= tsteps;
-                var sec = simTime % 60;
-                var min = Math.Floor(simTime / 60);
-                tText.text = min.ToString("0#") + ":" + sec.ToString("0#.00") + "\nmm:ss.ss";
-            } 
+            simTime += Time.deltaTime;
+            while (simTime >= sTimes[tstep]){
+                dyn_data = get_floats(fs, nvals);
+                fText.text = "fluid flow: " + string.Format("{0,4:####}", dyn_data[0]) + " um3/s";
+                tstep++;
+                if (tstep >= tsteps){    // loop the simulation display
+                    tstep = 0;
+                    simTime = sTimes[0]; 
+                    fs.Seek(data_head, SeekOrigin.Begin);  // rewind the file pointer
+                } 
+            };
+            var sec = simTime % 60;
+            var min = Math.Floor(simTime / 60);
+            tText.text = " " + min.ToString("0#") + ":" + sec.ToString("0#.00") + "\nmm:ss.ss";
         } 
     }
 }

@@ -4,10 +4,6 @@ using UnityEngine;
 
 public class toggle_rotate : MonoBehaviour
 {
-    void Start()
-    {
-    }
-
     void Update ()
     {  
         if (Input.GetKeyDown (KeyCode.R))
