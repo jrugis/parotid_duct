@@ -19,9 +19,12 @@ public class mini_gland_properties : MonoBehaviour
     // simulation time stepping data
     public int tsteps;            // total number of data time steps
     public int tstep;             // current time step
+    private int prev_tstep;       // current time step
     public float[] sTimes;        // simulation time at each step
     public float simTime;         // current simulation time 
     private Text tText;           // simulation time display
+    public float speed;           // playback speed
+    private Text sText;           // playback speed display
 
     // duct dynamic data
     private FileStream fs;
@@ -102,34 +105,49 @@ public class mini_gland_properties : MonoBehaviour
         // read initial dynamic data
         data_head = fs.Position;
         dyn_data = get_floats(fs, nvals);
-        tstep = 0;
         simTime = sTimes[0];
 
         // get display components 
         tText = GameObject.Find("time_display").GetComponent<Text>();
         fText = GameObject.Find("flow_display").GetComponent<Text>();
-        fText.text = "fluid flow: " + string.Format("{0,4:####}", dyn_data[0]) + " um3/s";
+        sText = GameObject.Find("speed_display").GetComponent<Text>();
+        prev_tstep = -1;  // to force initial data display  
      }
    
     // simulation time stepping
-     void Update()
+    void Update()
     {
-        if (this.GetComponent<toggle_sim>().simulate)
-        {
-            simTime += Time.deltaTime;
-            while (simTime >= sTimes[tstep]){
-                dyn_data = get_floats(fs, nvals);
-                fText.text = "fluid flow: " + string.Format("{0,4:####}", dyn_data[0]) + " um3/s";
-                tstep++;
-                if (tstep >= tsteps){    // loop the simulation display
-                    tstep = 0;
-                    simTime = sTimes[0]; 
-                    fs.Seek(data_head, SeekOrigin.Begin);  // rewind the file pointer
-                } 
-            };
+        if (Input.GetKeyDown (KeyCode.P)){
+            speed *= 2F;
+            if (speed > 16) speed = 1.0F / 8;
+            sText.text = "speed " + speed.ToString() + "x";
+        }
+        if (Input.GetKey (KeyCode.LeftShift) & Input.GetMouseButton(0)){
+            simTime += ((sTimes[tsteps-1] - sTimes[0]) / 30) * Input.GetAxis("Mouse X");
+            if (simTime < sTimes[0]) simTime = sTimes[0];
+            if (simTime > sTimes[tsteps-1]) simTime = sTimes[tsteps-1];
+            tstep = 0;
+        }
+        if (this.GetComponent<toggle_sim>().simulate){
+            simTime += speed * Time.deltaTime;
+        } 
+        while (simTime > sTimes[tstep]){
+            tstep++;
+            if (tstep >= tsteps){    // back to the beginning
+                tstep = 0;
+                simTime = sTimes[0]; 
+            } 
+        }
+        if (tstep != prev_tstep){
+            prev_tstep = tstep;
+            fs.Seek(data_head + (tstep * nvals * sizeof(float)), SeekOrigin.Begin);  // position in file
+            dyn_data = get_floats(fs, nvals);                                        // get the data
+            string t = "   fluid flow: " + string.Format("{0,4:####}", dyn_data[0]) + " um3/s";
+            t += "\nstimulation:  OFF";
+            fText.text = t;
             var sec = simTime % 60;
             var min = Math.Floor(simTime / 60);
             tText.text = " " + min.ToString("0#") + ":" + sec.ToString("0#.00") + "\nmm:ss.ss";
-        } 
+        }
     }
 }

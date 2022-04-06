@@ -137,7 +137,6 @@ GameObject:
   - component: {fileID: 47661388}
   - component: {fileID: 47661387}
   - component: {fileID: 47661391}
-  - component: {fileID: 47661392}
   m_Layer: 0
   m_Name: MiniGland
   m_TagString: Untagged
@@ -232,23 +231,11 @@ MonoBehaviour:
   tstep: 0
   sTimes: []
   simTime: 0
+  speed: 1
   nvals: 0
   min_vals: []
   max_vals: []
   dyn_data: []
---- !u!114 &47661392
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 47661385}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0a58f28c93d8b499f828445aee853d7f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  seconds: 0
 --- !u!1 &112765894 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 4a513eda69fe0486693f6888aea621dd,
@@ -675,8 +662,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -150, y: 130}
-  m_SizeDelta: {x: 250, y: 150}
+  m_AnchoredPosition: {x: -160, y: 130}
+  m_SizeDelta: {x: 260, y: 150}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &646047644
 MonoBehaviour:
@@ -724,7 +711,9 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'fluid flow:    0 um3/s
+  m_Text: '   fluid flow:    0 um3/s
+
+    stimulation:  OFF
 
 '
 --- !u!222 &646047646
@@ -1408,7 +1397,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 350, y: -300}
-  m_SizeDelta: {x: 550, y: 480}
+  m_SizeDelta: {x: 570, y: 540}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1082269495
 MonoBehaviour:
@@ -1445,11 +1434,11 @@ MonoBehaviour:
     m_LineSpacing: 1
   m_Text: "Key Commands:\n    1-6  cycle visibility acinii\n    b  cycle background
     color\n    d  cycle visibility duct\n    h  toggle help\n    i   cycle visibility
-    intercalated cells\n    r   toggle rotate\n    s  cycle visibility striated cells\n   
-    t   toggle simulation data display\n    v  cycle visibility virtual duct\n   
-    <space> toggle simulation\n \n\nMouse Commands:\n    left_button drag to spin
-    MiniGland\n    right_button drag to move MiniGland\n    left_shift + right_button
-    vertical_drag to zoom\n"
+    intercalated cells\n    p  cycle playback time speed\n    r   toggle rotate\n   
+    s  cycle visibility striated cells\n    t   toggle simulation data display\n   
+    v  cycle visibility virtual duct\n    <space> toggle simulation\n \n\nMouse Commands:\n   
+    L_button drag to spin MiniGland\n    R_button drag to move MiniGland\n    L_shift
+    + L_button H_drag to scroll time\n    L_shift + R_button V_drag to zoom\n"
 --- !u!222 &1082269496
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1517,6 +1506,99 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   kcode: 100
   state: 0
+--- !u!1 &1331265444
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1331265445}
+  - component: {fileID: 1331265448}
+  - component: {fileID: 1331265447}
+  - component: {fileID: 1331265446}
+  m_Layer: 5
+  m_Name: speed_display
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1331265445
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1331265444}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 2054387714}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 1, y: 0}
+  m_AnchorMax: {x: 1, y: 0}
+  m_AnchoredPosition: {x: -70, y: -30}
+  m_SizeDelta: {x: 250, y: 150}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1331265446
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1331265444}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 29c3abb989fed40dc9b4126b46b7101f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  kcode: 116
+--- !u!114 &1331265447
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1331265444}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 0.7479466, b: 0, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FontData:
+    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_FontSize: 24
+    m_FontStyle: 0
+    m_BestFit: 0
+    m_MinSize: 0
+    m_MaxSize: 40
+    m_Alignment: 0
+    m_AlignByGeometry: 0
+    m_RichText: 1
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1
+  m_Text: speed 1x
+--- !u!222 &1331265448
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1331265444}
+  m_CullTransparentMesh: 0
 --- !u!1 &1391522710 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: b99a11f65f331478e929ea29cc2faa44,
@@ -2242,6 +2324,7 @@ RectTransform:
   - {fileID: 646047643}
   - {fileID: 1082269494}
   - {fileID: 1797296812}
+  - {fileID: 1331265445}
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
