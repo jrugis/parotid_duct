@@ -10,7 +10,8 @@ public class mini_gland_properties : MonoBehaviour
     public string path;  // the simulation data file
 
     // duct fixed data
-    public int ndiscs;               // number of duct discs           
+    public int ndiscs;               // number of duct discs
+    public int ncells;               // number of duct cells          
     public Vector3[] disc_centers;   // disc centers
     public float[] disc_diameters;   // disc diameters
     public float[] disc_lengths;     // disc lengths
@@ -21,6 +22,8 @@ public class mini_gland_properties : MonoBehaviour
     public int tstep;             // current time step
     private int prev_tstep;       // current time step
     public float[] sTimes;        // simulation time at each step
+    private int stim_on;          // stimulation ON time step
+    private int stim_off;         //       "     OFF   "   "
     public float simTime;         // current simulation time 
     private Text tText;           // simulation time display
     public float speed;           // playback speed
@@ -78,9 +81,25 @@ public class mini_gland_properties : MonoBehaviour
         return(float_array);
     }
     
+    private void display_duct_data()
+    {
+        string stim = "OFF";
+        if ((tstep >= stim_on) & (tstep < stim_off)) stim = "ON";
+        int idx = ndiscs + (9 * ncells); 
+        string t = "\n" + dyn_data[idx].ToString("G3");
+        t += "\n" + dyn_data[idx+1].ToString("G3");
+        t += "\n" + dyn_data[idx+2].ToString("G3");
+        t += "\n" + dyn_data[idx+3].ToString("G3");
+        t += "\n" + dyn_data[idx+4].ToString("G3");
+        t += "\n" + dyn_data[idx+5].ToString("G3");
+        t += "\n" + dyn_data[0].ToString("0#");
+        t += "\n\n" + stim;
+        fText.text = t;
+    }
+
     // Note: Awake functions are executed before any Start functions
-     void Awake()
-     {
+    void Awake()
+    {
         if (!File.Exists(path))
         {
             Debug.Log("Data file " + path + " not found.");
@@ -97,6 +116,8 @@ public class mini_gland_properties : MonoBehaviour
 
         // read in simulation data
         tsteps = get_count(fs);              // time steps
+        stim_on = get_count(fs);             // stimulation ON time step 
+        stim_off = get_count(fs);            // stimulation OFF time step
         sTimes = get_floats(fs, tsteps);     // simulation times
         nvals = get_count(fs);               // simulated values
         //min_vals = get_floats(fs, nvals);  // min vals
@@ -109,10 +130,10 @@ public class mini_gland_properties : MonoBehaviour
 
         // get display components 
         tText = GameObject.Find("time_display").GetComponent<Text>();
-        fText = GameObject.Find("flow_display").GetComponent<Text>();
+        fText = GameObject.Find("duct_display").GetComponent<Text>();
         sText = GameObject.Find("speed_display").GetComponent<Text>();
         prev_tstep = -1;  // to force initial data display  
-     }
+    }
    
     // simulation time stepping
     void Update()
@@ -142,11 +163,9 @@ public class mini_gland_properties : MonoBehaviour
             prev_tstep = tstep;
             fs.Seek(data_head + (tstep * nvals * sizeof(float)), SeekOrigin.Begin);  // position in file
             dyn_data = get_floats(fs, nvals);                                        // get the data
-            string t = "   fluid flow: " + string.Format("{0,4:####}", dyn_data[0]) + " um3/s";
-            t += "\nstimulation:  OFF";
-            fText.text = t;
-            var sec = simTime % 60;
-            var min = Math.Floor(simTime / 60);
+            display_duct_data();                   // display the dynamic duct data
+            var sec = simTime % 60;                // display the simulation time
+            var min = Math.Floor(simTime / 60);    //
             tText.text = " " + min.ToString("0#") + ":" + sec.ToString("0#.00") + "\nmm:ss.ss";
         }
     }
