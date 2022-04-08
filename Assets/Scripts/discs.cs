@@ -35,7 +35,7 @@ public class discs : MonoBehaviour
  
             // randomly offset the texture x-position so that adjecent textures don't align
             Renderer rend = obj.GetComponent<Renderer>();
-            rend.material.mainTextureOffset = new Vector2(UnityEngine.Random.Range(0, Mathf.PI), UnityEngine.Random.Range(0, Mathf.PI));
+            rend.material.mainTextureOffset = new Vector2(UnityEngine.Random.Range(0, 1F), UnityEngine.Random.Range(0, 1F));
             rend.enabled = false;  // start hidden
         }
     }

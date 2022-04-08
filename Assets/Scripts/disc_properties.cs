@@ -8,6 +8,7 @@ public class disc_properties : MonoBehaviour
     public float flow;
     public float velocity;
     public float area;
+    public float diameter;
     private GameObject mini_gland;   // for quick reference
     private int idx_vars;            // index into ion concentrations for this disc
     private GameObject duct;
@@ -17,10 +18,10 @@ public class disc_properties : MonoBehaviour
     {
         mini_gland = GameObject.Find("MiniGland");
         duct = GameObject.Find("virtual_duct");
-        var diameter = mini_gland.GetComponent<mini_gland_properties>().disc_diameters[disc_id];
+        diameter = mini_gland.GetComponent<mini_gland_properties>().disc_diameters[disc_id];
         area = Mathf.PI * diameter * diameter / 4.0F; // disc cross-section area
         flow = mini_gland.GetComponent<mini_gland_properties>().dyn_data[disc_id];  // initialise to first value
-        int nvars = mini_gland.GetComponent<mini_gland_properties>().ndvars;
+        var nvars = mini_gland.GetComponent<mini_gland_properties>().ndvars;
         idx_vars = mini_gland.GetComponent<mini_gland_properties>().disc_idx + (nvars * disc_id);
     }
 
@@ -33,10 +34,11 @@ public class disc_properties : MonoBehaviour
         flow = mini_gland.GetComponent<mini_gland_properties>().dyn_data[disc_id];
         velocity = flow / area;
         var dx = velocity * Time.deltaTime;
-        dx *= 4; // a bit faster for visulisation
+        //dx *= mini_gland.GetComponent<mini_gland_properties>().speed;
+        dx /= 50F;    // slowed down for display
         Material mat = GetComponent<Renderer>().material;
         float x = mat.mainTextureOffset.x;
-        float y = mat.mainTextureOffset.y + (dx / 1024); // scaled by texture size
+        float y = mat.mainTextureOffset.y + (dx / diameter); // scaled by texture size
         mat.mainTextureOffset = new Vector2(x, y);
 
         // visualise an ion concentration

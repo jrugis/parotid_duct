@@ -1452,9 +1452,9 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: "Key Commands:\n    1-6  cycle visibility acinii\n    b  cycle background
-    color\n    d  cycle visibility duct\n    f  cycle visibility fluid flow\n   
-    h  toggle help\n    i   cycle visibility intercalated cells\n    p  cycle playback
-    time speed\n    r   toggle rotate\n    s  cycle visibility striated cells\n   
+    color\n    d  cycle duct visibility\n    f   cycle fluid flow visibility\n   
+    h  toggle help\n    i   cycle intercalated cell visibility\n    p  cycle playback
+    data speed\n    r   toggle rotate\n    s  cycle striated cell visibility \n   
     t   toggle simulation data display\n    <space> toggle simulation\n \n\nMouse
     Commands:\n    L_button drag to spin MiniGland\n    R_button drag to move MiniGland\n   
     L_shift + L_button H_drag to scroll time\n    L_shift + R_button V_drag to zoom\n"
