@@ -224,6 +224,9 @@ MonoBehaviour:
   path: _4Unity_duct.bin
   ndiscs: 0
   ncells: 101
+  ndvars: 6
+  ncvars: 9
+  disc_idx: 0
   disc_centers: []
   disc_diameters: []
   disc_lengths: []
@@ -1449,12 +1452,12 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: "Key Commands:\n    1-6  cycle visibility acinii\n    b  cycle background
-    color\n    d  cycle visibility duct\n    h  toggle help\n    i   cycle visibility
-    intercalated cells\n    p  cycle playback time speed\n    r   toggle rotate\n   
-    s  cycle visibility striated cells\n    t   toggle simulation data display\n   
-    v  cycle visibility virtual duct\n    <space> toggle simulation\n \n\nMouse Commands:\n   
-    L_button drag to spin MiniGland\n    R_button drag to move MiniGland\n    L_shift
-    + L_button H_drag to scroll time\n    L_shift + R_button V_drag to zoom\n"
+    color\n    d  cycle visibility duct\n    f  cycle visibility fluid flow\n   
+    h  toggle help\n    i   cycle visibility intercalated cells\n    p  cycle playback
+    time speed\n    r   toggle rotate\n    s  cycle visibility striated cells\n   
+    t   toggle simulation data display\n    <space> toggle simulation\n \n\nMouse
+    Commands:\n    L_button drag to spin MiniGland\n    R_button drag to move MiniGland\n   
+    L_shift + L_button H_drag to scroll time\n    L_shift + R_button V_drag to zoom\n"
 --- !u!222 &1082269496
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1676,8 +1679,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -270, y: 300}
-  m_SizeDelta: {x: 150, y: 300}
+  m_AnchoredPosition: {x: -280, y: 300}
+  m_SizeDelta: {x: 170, y: 300}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1414166556
 MonoBehaviour:
@@ -1725,7 +1728,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: '-- Saliva --
+  m_Text: '- Exit Saliva -
 
     Na (mM)
 
@@ -2473,7 +2476,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2145712349}
   - component: {fileID: 2145712350}
-  - component: {fileID: 2145712351}
+  - component: {fileID: 2145712352}
   m_Layer: 0
   m_Name: virtual_duct
   m_TagString: Untagged
@@ -2508,7 +2511,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   disc: {fileID: 3980016476658343643, guid: 98545c7334d694c6b930f1b6a2d62e33, type: 3}
---- !u!114 &2145712351
+--- !u!114 &2145712352
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2517,8 +2520,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 2145712348}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f6ffe4318712e4fb1839c416d8358f26, type: 3}
+  m_Script: {fileID: 11500000, guid: fec28096197fa449d9eedca4bfb0a5f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  kcode: 118
-  state: 2
+  display_state: -1
+  kcode: 102

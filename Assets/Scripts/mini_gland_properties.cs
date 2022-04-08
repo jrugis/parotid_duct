@@ -10,8 +10,11 @@ public class mini_gland_properties : MonoBehaviour
     public string path;  // the simulation data file
 
     // duct fixed data
-    public int ndiscs;               // number of duct discs
-    public int ncells;               // number of duct cells          
+    public int ndiscs;           // number of duct discs
+    public int ncells;           // number of duct cells
+    public int ndvars;           // number disc variables 
+    public int ncvars;           // number of cell variables
+    public int disc_idx;
     public Vector3[] disc_centers;   // disc centers
     public float[] disc_diameters;   // disc diameters
     public float[] disc_lengths;     // disc lengths
@@ -85,13 +88,12 @@ public class mini_gland_properties : MonoBehaviour
     {
         string stim = "OFF";
         if ((tstep >= stim_on) & (tstep < stim_off)) stim = "ON";
-        int idx = ndiscs + (9 * ncells); 
-        string t = "\n" + dyn_data[idx].ToString("G3");
-        t += "\n" + dyn_data[idx+1].ToString("G3");
-        t += "\n" + dyn_data[idx+2].ToString("G3");
-        t += "\n" + dyn_data[idx+3].ToString("G3");
-        t += "\n" + dyn_data[idx+4].ToString("G3");
-        t += "\n" + dyn_data[idx+5].ToString("G3");
+        string t = "\n" + dyn_data[disc_idx].ToString("G3");
+        t += "\n" + dyn_data[disc_idx+1].ToString("G3");
+        t += "\n" + dyn_data[disc_idx+2].ToString("G3");
+        t += "\n" + dyn_data[disc_idx+3].ToString("G3");
+        t += "\n" + dyn_data[disc_idx+4].ToString("G3");
+        t += "\n" + dyn_data[disc_idx+5].ToString("G3");
         t += "\n" + dyn_data[0].ToString("0#");
         t += "\n\n" + stim;
         fText.text = t;
@@ -127,6 +129,7 @@ public class mini_gland_properties : MonoBehaviour
         data_head = fs.Position;
         dyn_data = get_floats(fs, nvals);
         simTime = sTimes[0];
+        disc_idx = ndiscs + (ncvars * ncells);   // index to the disc data
 
         // get display components 
         tText = GameObject.Find("time_display").GetComponent<Text>();
