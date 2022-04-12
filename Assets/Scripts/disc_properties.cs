@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -45,6 +46,7 @@ public class disc_properties : MonoBehaviour
         if (idx == -1) idx = 0;  // index -1 is for "not visible" state so don't use it here!
         var props = duct.GetComponent<duct_properties>().ion_props[idx];
         c = mini_gland.GetComponent<mini_gland_properties>().dyn_data[idx_vars + idx];
+        if (idx == 4) c = (float)(-Math.Log10(c/1000)); // *** HARD CODED *** change H to pH
         mat.color = Color.Lerp(Color.green, Color.red, (c - props.min) / (props.max - props.min));
     }
 }
