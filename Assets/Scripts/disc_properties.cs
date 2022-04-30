@@ -44,7 +44,6 @@ public class disc_properties : MonoBehaviour
 
         // visualise an ion concentration
         if (idx == -1) idx = 0;  // index -1 is for "not visible" state so don't use it here!
-        var props = duct.GetComponent<duct_properties>().ion_props[idx];
         c = mini_gland.GetComponent<mini_gland_properties>().dyn_data[idx_vars + idx];
         var min = mini_gland.GetComponent<mini_gland_properties>().min_vals[idx+1];
         var max = mini_gland.GetComponent<mini_gland_properties>().max_vals[idx+1];
