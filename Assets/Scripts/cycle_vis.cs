@@ -7,7 +7,7 @@ using System.Collections.Generic;
 public class cycle_vis : MonoBehaviour
 {
     public KeyCode kcode = KeyCode.X; // set this in each object's GUI
-    public enum States {opaque, transparent, hidden, number_of_states};
+    public enum States {opaque, half, transparent, hidden, number_of_states};
     public States state;
 
     void Update ()
@@ -32,6 +32,20 @@ public class cycle_vis : MonoBehaviour
                     rend.material.renderQueue = -1;
                     color = rend.material.GetColor("_Color");;
                     color.a = 1.0f;
+                    rend.material.SetColor("_Color", color);
+                }
+                else if(state == States.half)
+                {
+                    rend.material.SetOverrideTag("RenderType", "Transparent");
+                    //rend.material.SetInt("_SrcBlend", (int)UnityEngine.Rendering.BlendMode.One);
+                    rend.material.SetInt("_DstBlend", (int)UnityEngine.Rendering.BlendMode.OneMinusSrcAlpha);
+                    rend.material.SetInt("_ZWrite", 0);
+                    //rend.material.DisableKeyword("_ALPHATEST_ON");
+                    //rend.material.DisableKeyword("_ALPHABLEND_ON");
+                    rend.material.EnableKeyword("_ALPHAPREMULTIPLY_ON");
+                    rend.material.renderQueue = 3000;
+                    color = rend.material.GetColor("_Color");;
+                    color.a = 0.3f;
                     rend.material.SetColor("_Color", color);
                 }
                 else if(state == States.transparent)

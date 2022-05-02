@@ -1,0 +1,8 @@
+====
+ToDo
+====
+
+- full minigland parenting with virtual duct
+- complete duct fluid parenting hierarchy
+
+
