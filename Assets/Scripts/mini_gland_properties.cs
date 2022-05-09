@@ -92,7 +92,7 @@ public class mini_gland_properties : MonoBehaviour
         t += "\n" + dyn_data[disc_idx+1].ToString("G3");
         t += "\n" + dyn_data[disc_idx+2].ToString("G3");
         t += "\n" + dyn_data[disc_idx+3].ToString("G3");
-        t += "\n" + (-Math.Log10(dyn_data[disc_idx+4]/1000)).ToString("G3");
+        t += "\n" + dyn_data[disc_idx+4].ToString("G3");
         t += "\n" + dyn_data[0].ToString("0#");
         t += "\n\n" + stim;
         fText.text = t;

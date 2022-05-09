@@ -30,9 +30,9 @@ public class duct_properties : MonoBehaviour
         ion_props = new List<string>(){"Na", "K", "Cl", "HCO3", "pH"};
         mini_gland = GameObject.Find("MiniGland");
 
-        fText = GameObject.Find("fluid_display").GetComponent<Text>();
         fBG = GameObject.Find("fluid_bg").GetComponent<Text>();
-        fColorBar = GameObject.Find("color_bar").GetComponent<RawImage>();
+        fText = GameObject.Find("fluid_display").GetComponent<Text>();
+        fColorBar = GameObject.Find("fluid_color_bar").GetComponent<RawImage>();
         fMin_ref = GameObject.Find("min_fluid_ref").GetComponent<Transform>();
 
         fMin_image = GameObject.Find("min_fluid_marker").GetComponent<RawImage>();
@@ -64,7 +64,7 @@ public class duct_properties : MonoBehaviour
             if (fText.enabled){
                 min = mini_gland.GetComponent<mini_gland_properties>().min_vals[ncvars+display_state+1];
                 max = mini_gland.GetComponent<mini_gland_properties>().max_vals[ncvars+display_state+1];
-                var txt = ion_props[display_state] + "(nM)\n";
+                var txt = ion_props[display_state] + (display_state==4 ? "\n" : "(mM)\n");
                 txt += (display_state==4 ? max.ToString("#0.0") : max.ToString("#0")); // higher precision for pH
                 txt += "\n\n\n\n\n";
                 var mid = min+(max-min)/2f;
