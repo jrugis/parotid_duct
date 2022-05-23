@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 public class cycle_vis : MonoBehaviour
 {
-    public KeyCode kcode = KeyCode.X; // set this in each object's GUI
+    public KeyCode kcode; // set this in each object's GUI
     public enum States {opaque, half, transparent, hidden, number_of_states};
     public States state;
 
