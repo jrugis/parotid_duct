@@ -8,6 +8,13 @@ using UnityEngine.UI;
 public class mini_gland_properties : MonoBehaviour
 {
     public string path;  // the simulation data file
+    public string a_path;  // the acinus simulation data file
+
+    // acinus data
+    private FileStream a_fs;
+    public int a_nnodes;         // number of acinus nodes
+    public int a_ntsteps;        // number of acinus timesteps
+    public Vector3[] a_nodes;    // acinus node coordinates
 
     // duct fixed data
     public int ndiscs;           // number of duct discs
@@ -101,6 +108,19 @@ public class mini_gland_properties : MonoBehaviour
     // Note: Awake functions are executed before any Start functions
     void Awake()
     {
+        // ********** get acinus data ************
+        if (!File.Exists(a_path))
+        {
+            Debug.Log("Data file " + path + " not found.");
+            Application.Quit();
+        }
+        // read in acinus fixed data
+        a_fs = new FileStream(a_path, FileMode.Open);
+        a_nnodes = get_count(a_fs);                 // number of acinus nodes           
+        a_ntsteps = get_count(a_fs);                // number of acinus timesteps           
+        a_nodes = get_coordinate(a_fs, a_nnodes);   // acinus node coordinates
+
+        // ********** get duct data ************
         if (!File.Exists(path))
         {
             Debug.Log("Data file " + path + " not found.");
