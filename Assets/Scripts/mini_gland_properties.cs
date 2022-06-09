@@ -13,9 +13,15 @@ public class mini_gland_properties : MonoBehaviour
     // acinus data
     private FileStream a_fs;
     public int a_nnodes;         // number of acinus nodes
-    public int a_ntsteps;        // number of acinus timesteps
     public Vector3[] a_nodes;    // acinus node coordinates
 
+    public int a_ntsteps;        // number of acinus timesteps
+    public float[] a_sTimes;     // acinus simulation time at each step
+    public int a_tstep;          // acinus current time step
+    private int a_prev_tstep;    // acinus previous time step
+    private long a_data_head;    // acinus data head file position
+    public float[] a_dyn_data;   // acinus simulation values in the current time step
+    
     // duct fixed data
     public int ndiscs;           // number of duct discs
     public int ncells;           // number of duct cells
@@ -30,7 +36,7 @@ public class mini_gland_properties : MonoBehaviour
     // simulation time stepping data
     public int tsteps;            // total number of data time steps
     public int tstep;             // current time step
-    private int prev_tstep;       // current time step
+    private int prev_tstep;       // previous time step
     public float[] sTimes;        // simulation time at each step
     private int stim_on;          // stimulation ON time step
     private int stim_off;         //       "     OFF   "   "
@@ -108,18 +114,6 @@ public class mini_gland_properties : MonoBehaviour
     // Note: Awake functions are executed before any Start functions
     void Awake()
     {
-        // ********** get acinus data ************
-        if (!File.Exists(a_path))
-        {
-            Debug.Log("Data file " + path + " not found.");
-            Application.Quit();
-        }
-        // read in acinus fixed data
-        a_fs = new FileStream(a_path, FileMode.Open);
-        a_nnodes = get_count(a_fs);                 // number of acinus nodes           
-        a_ntsteps = get_count(a_fs);                // number of acinus timesteps           
-        a_nodes = get_coordinate(a_fs, a_nnodes);   // acinus node coordinates
-
         // ********** get duct data ************
         if (!File.Exists(path))
         {
@@ -148,13 +142,31 @@ public class mini_gland_properties : MonoBehaviour
         data_head = fs.Position;
         dyn_data = get_floats(fs, nvals);
         simTime = sTimes[0];
-        disc_idx = ndiscs + (ncvars * ncells);   // index to the disc data
+        disc_idx = ndiscs + (ncvars * ncells);   // index into the disc data
 
         // get display components 
         tText = GameObject.Find("time_display").GetComponent<Text>();
         fText = GameObject.Find("duct_display").GetComponent<Text>();
         sText = GameObject.Find("speed_display").GetComponent<Text>();
         prev_tstep = -1;  // to force initial data display  
+
+        // ********** get acinus data ************
+        if (!File.Exists(a_path))
+        {
+            Debug.Log("Data file " + path + " not found.");
+            Application.Quit();
+        }
+        // read in acinus fixed data
+        a_fs = new FileStream(a_path, FileMode.Open);
+        a_nnodes = get_count(a_fs);                 // number of acinus nodes           
+        a_ntsteps = get_count(a_fs);                // number of acinus timesteps           
+        a_nodes = get_coordinate(a_fs, a_nnodes);   // acinus node coordinates
+        a_sTimes = get_floats(a_fs, a_ntsteps);       // acinus simulation times
+
+        // read in acinus simulation data
+        a_data_head = a_fs.Position;
+        a_dyn_data = get_floats(a_fs, a_nnodes);
+        a_prev_tstep = -1;  // to force initial data display  
     }
    
     // simulation time stepping
@@ -169,16 +181,18 @@ public class mini_gland_properties : MonoBehaviour
             simTime += ((sTimes[tsteps-1] - sTimes[0]) / 30) * Input.GetAxis("Mouse X");
             if (simTime < sTimes[0]) simTime = sTimes[0];
             if (simTime > sTimes[tsteps-1]) simTime = sTimes[tsteps-1];
-            tstep = 0;
+            a_tstep = tstep = 0;
         }
         if (this.GetComponent<toggle_sim>().simulate){
             simTime += speed * Time.deltaTime;
         } 
+        // ************* duct ***************
+        // NOTE: the duct data time range is used for the visualization 
         while (simTime > sTimes[tstep]){
             tstep++;
             if (tstep >= tsteps){    // back to the beginning
-                tstep = 0;
-                simTime = sTimes[0]; 
+                a_tstep = tstep = 0; // reset both the duct and the acinus step
+                simTime = sTimes[0]; // use the first duct time 
             } 
         }
         if (tstep != prev_tstep){
@@ -189,6 +203,16 @@ public class mini_gland_properties : MonoBehaviour
             var sec = simTime % 60;                // display the simulation time
             var min = Math.Floor(simTime / 60);    //
             tText.text = " " + min.ToString("0#") + ":" + sec.ToString("0#.00") + "\nmm:ss.ss";
+        }
+        // ************* acinus ***************
+        // NOTE: if the acinus data time range is less than the duct data time range, stay on the final acinus data value  
+        while ((simTime > a_sTimes[a_tstep]) && (a_tstep < (a_ntsteps-1))){
+            a_tstep++;
+        }
+        if (a_tstep != a_prev_tstep){
+            a_prev_tstep = a_tstep;
+            a_fs.Seek(a_data_head + (a_tstep * a_nnodes * sizeof(float)), SeekOrigin.Begin);  // position in file
+            a_dyn_data = get_floats(a_fs, a_nnodes);                                          // get the data
         }
     }
 }

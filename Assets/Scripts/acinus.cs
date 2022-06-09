@@ -9,11 +9,13 @@ public class acinus : MonoBehaviour
     private ParticleSystem psystem;
     private ParticleSystem.Particle[] points;
     public String label;
+    private GameObject mini_gland;
+    public float[] c;
 
     void Start()   
     {
         // get terse references to relevant data from MiniGland object
-        var mini_gland = GameObject.Find("MiniGland");
+        mini_gland = GameObject.Find("MiniGland");
         var ntsteps = mini_gland.GetComponent<mini_gland_properties>().a_ntsteps; // number of timesteps
         var nnodes = mini_gland.GetComponent<mini_gland_properties>().a_nnodes;  // number of nodes
         var nodes = mini_gland.GetComponent<mini_gland_properties>().a_nodes;    // node coordinates
@@ -26,12 +28,22 @@ public class acinus : MonoBehaviour
         for (int i = 0; i < nnodes; i++)
         {
             points[i].position = nodes[i];
-            points[i].startSize = 1.0f;
+            points[i].startSize = 0.01f;
             //points[i].startColor = new Color(0.9f, 0.1f, 0f);
         }
         psystem.SetParticles(points, points.Length); // renders the nodes
 
         var psrend = psystem.GetComponent<ParticleSystemRenderer>();
         label = psrend.name;
+    }
+    void Update()
+    {
+        c = mini_gland.GetComponent<mini_gland_properties>().a_dyn_data;
+        //for (int i = 0; i < points.GetLength(0); i++){
+        for (int i = 205; i < 305; i++){
+            points[i].startSize = 30.0f * c[i];
+        }
+        //points[0].startSize = 30.0f * c[0];
+        psystem.SetParticles(points, points.Length); // renders the nodes
     }
 }
