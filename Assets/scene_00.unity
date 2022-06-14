@@ -224,8 +224,11 @@ MonoBehaviour:
   path: _4Unity_duct.bin
   a_path: _4Unity_acinus.bin
   a_nnodes: 0
-  a_ntsteps: 0
   a_nodes: []
+  a_ntsteps: 0
+  a_sTimes: []
+  a_tstep: 0
+  a_dyn_data: []
   ndiscs: 0
   ncells: 111
   ndvars: 5
@@ -2080,13 +2083,13 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: "Key Commands:\n    1-6  cycle visibility acinii\n    b  cycle background
-    color\n    d  cycle duct visibility\n    f   cycle duct fluid visibility\n   
-    h  toggle help\n    i   cycle intercalated cell visibility\n    p  cycle playback
-    data speed\n    r   toggle rotate\n    s  cycle striated cell visibility \n   
-    t   toggle simulation data display\n    w  toggle cutaway view\n    <space> toggle
-    simulation\n \n\nMouse Commands:\n    L_button drag to spin MiniGland\n    R_button
-    drag to move MiniGland\n    L_shift + L_button H_drag to scroll time\n    L_shift
-    + R_button V_drag to zoom\n"
+    color\n    c  cycle duct cell data visibility\n    d  cycle duct visibility\n   
+    f   cycle duct fluid data visibility\n    h  toggle help\n    i   cycle intercalated
+    cell visibility\n    p  cycle playback data speed\n    r   toggle rotate\n   
+    s  cycle striated cell visibility \n    t   toggle simulation data display\n   
+    w  toggle cutaway view\n    <space> toggle simulation\n \n\nMouse Commands:\n   
+    L_button drag to spin MiniGland\n    R_button drag to move MiniGland\n    L_shift
+    + L_button H_drag to scroll time\n    L_shift + R_button V_drag to zoom\n"
 --- !u!222 &1082269496
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2293,6 +2296,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   label: 
+  c: []
 --- !u!199 &1227970287
 ParticleSystemRenderer:
   serializedVersion: 6

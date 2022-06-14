@@ -28,7 +28,7 @@ public class acinus : MonoBehaviour
         for (int i = 0; i < nnodes; i++)
         {
             points[i].position = nodes[i];
-            points[i].startSize = 0.01f;
+            points[i].startSize = 0.001f;
             //points[i].startColor = new Color(0.9f, 0.1f, 0f);
         }
         psystem.SetParticles(points, points.Length); // renders the nodes
@@ -39,9 +39,9 @@ public class acinus : MonoBehaviour
     void Update()
     {
         c = mini_gland.GetComponent<mini_gland_properties>().a_dyn_data;
-        //for (int i = 0; i < points.GetLength(0); i++){
-        for (int i = 205; i < 305; i++){
-            points[i].startSize = 30.0f * c[i];
+        for (int i = 0; i < points.GetLength(0); i++){
+        //for (int i = 205; i < 305; i++){
+            points[i].startSize = 10.0f * (c[i] - 0.075f);
         }
         //points[0].startSize = 30.0f * c[0];
         psystem.SetParticles(points, points.Length); // renders the nodes
