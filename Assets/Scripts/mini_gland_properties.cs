@@ -135,7 +135,7 @@ public class mini_gland_properties : MonoBehaviour
         stim_off = get_count(fs);            // stimulation OFF time step
         sTimes = get_floats(fs, tsteps);     // simulation times
         nvals = get_count(fs);               // simulated values
-        min_vals = get_floats(fs, ncvars+ndvars+1);    // min vals duct
+        min_vals = get_floats(fs, ncvars+ndvars+1);    // min vals
         max_vals = get_floats(fs, ncvars+ndvars+1);    // max vals
 
         // read initial dynamic data

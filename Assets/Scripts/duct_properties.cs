@@ -62,10 +62,10 @@ public class duct_properties : MonoBehaviour
 
             // display fluid color bar scale numbers
             if (fText.enabled){
-                //min = mini_gland.GetComponent<mini_gland_properties>().min_vals[ncvars+display_state+1];
-                //max = mini_gland.GetComponent<mini_gland_properties>().max_vals[ncvars+display_state+1];
-                min = (display_state == 4) ? 7.1f : 0f;    // for pH else ion concentration
-                max = (display_state == 4) ? 8.4f : 160f;
+                min = mini_gland.GetComponent<mini_gland_properties>().min_vals[ncvars+display_state+1];
+                max = mini_gland.GetComponent<mini_gland_properties>().max_vals[ncvars+display_state+1];
+                //min = (display_state == 4) ? 7.1f : 0f;    // for pH else ion concentration
+                //max = (display_state == 4) ? 8.4f : 160f;
                 var txt = ion_props[display_state] + (display_state==4 ? "\n" : "(mM)\n");
                 txt += (display_state==4 ? max.ToString("#0.0") : max.ToString("#0")); // higher precision for pH
                 txt += "\n\n\n\n\n";
@@ -80,10 +80,10 @@ public class duct_properties : MonoBehaviour
         if (display_state == -1) return; // done if not visi1ble
 
         // display ion concentration span for the current simulation time step
-        //min = mini_gland.GetComponent<mini_gland_properties>().min_vals[ncvars+display_state+1];
-        //max = mini_gland.GetComponent<mini_gland_properties>().max_vals[ncvars+display_state+1];
-        min = (display_state == 4) ? 7.1f : 0f;    // for pH else ion concentration
-        max = (display_state == 4) ? 8.4f : 160f;
+        min = mini_gland.GetComponent<mini_gland_properties>().min_vals[ncvars+display_state+1];
+        max = mini_gland.GetComponent<mini_gland_properties>().max_vals[ncvars+display_state+1];
+        //min = (display_state == 4) ? 7.1f : 0f;    // for pH else ion concentration
+        //max = (display_state == 4) ? 8.4f : 160f;
         var ndvars = mini_gland.GetComponent<mini_gland_properties>().ndvars;
         var ndiscs = mini_gland.GetComponent<mini_gland_properties>().ndiscs;
         dyn_data = mini_gland.GetComponent<mini_gland_properties>().dyn_data;

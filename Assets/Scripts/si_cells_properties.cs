@@ -51,12 +51,14 @@ public class si_cells_properties : MonoBehaviour
             cBG.enabled = cColorBar.enabled = cText.enabled;
             cMin_image.enabled = cMin_val.enabled = cText.enabled;
             cMax_image.enabled = cMax_val.enabled = cText.enabled;
-            min = (display_state == 4) ? 7.1f : 0f;    // for pH else ion concentration
-            max = (display_state == 4) ? 8.4f : 160f;
+            //min = (display_state == 4) ? 7.1f : 0f;    // for pH else ion concentration
+            //max = (display_state == 4) ? 8.4f : 160f;
         }
 
         // display fluid color bar scale numbers
-        if (cText.enabled){
+        if (cText.enabled & display_state!=-1){
+            min = mini_gland.GetComponent<mini_gland_properties>().min_vals[display_state];
+            max = mini_gland.GetComponent<mini_gland_properties>().max_vals[display_state];
             var txt = ion_props[display_state] + (display_state==4 ? "\n" : "(mM)\n");
             txt += (display_state==4 ? max.ToString("#0.0") : max.ToString("#0")); // higher precision for pH
             txt += "\n\n\n\n\n";

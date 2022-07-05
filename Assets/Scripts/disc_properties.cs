@@ -47,10 +47,10 @@ public class disc_properties : MonoBehaviour
         if (idx == -1) return;  // index -1 is for "not visible" state
         c = mini_gland.GetComponent<mini_gland_properties>().dyn_data[idx_vars + idx];
         var ncvars = mini_gland.GetComponent<mini_gland_properties>().ncvars;
-        //var min = mini_gland.GetComponent<mini_gland_properties>().min_vals[ncvars+idx+1];
-        //var max = mini_gland.GetComponent<mini_gland_properties>().max_vals[ncvars+idx+1];
-        var min = (idx == 4) ? 7.1f : 0f;    // for pH else ion concentration
-        var max = (idx == 4) ? 8.4f : 160f;
+        var min = mini_gland.GetComponent<mini_gland_properties>().min_vals[ncvars+idx+1];
+        var max = mini_gland.GetComponent<mini_gland_properties>().max_vals[ncvars+idx+1];
+        //var min = (idx == 4) ? 7.1f : 0f;    // for pH else ion concentration
+        //var max = (idx == 4) ? 8.4f : 160f;
         mat.color = Color.Lerp(Color.green, Color.red, (c - min) / (max - min));
     }
 }
