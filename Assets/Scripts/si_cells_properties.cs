@@ -59,7 +59,7 @@ public class si_cells_properties : MonoBehaviour
         if (cText.enabled & display_state!=-1){
             min = mini_gland.GetComponent<mini_gland_properties>().min_vals[display_state];
             max = mini_gland.GetComponent<mini_gland_properties>().max_vals[display_state];
-            var txt = ion_props[display_state] + (display_state==4 ? "\n" : "(mM)\n");
+            var txt = ion_props[display_state] + (display_state==4 ? "\n" : " (mM)\n");
             txt += (display_state==4 ? max.ToString("#0.0") : max.ToString("#0")); // higher precision for pH
             txt += "\n\n\n\n\n";
             var mid = min+(max-min)/2f;
