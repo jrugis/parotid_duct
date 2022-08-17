@@ -26,11 +26,12 @@ public class duct_cell_properties : MonoBehaviour
         var ndiscs = mini_gland.GetComponent<mini_gland_properties>().ndiscs;
         var ncvars = mini_gland.GetComponent<mini_gland_properties>().ncvars;
         var display_state = si_cells.GetComponent<si_cells_properties>().display_state;
+        var clbase = si_cells.GetComponent<si_cells_properties>().ion_colors[display_state+1];
         var min = si_cells.GetComponent<si_cells_properties>().min;
         var max = si_cells.GetComponent<si_cells_properties>().max;
         foreach (var rend in renderers){  // for each duct cell
             var s = rend.name;  // name of duct cell (which includes its number)
-            var idx = Convert.ToInt32((s.Substring(s.Length-3)))-1;  // zero based intger
+            var idx = Convert.ToInt32((s.Substring(s.Length-3)))-1;  // zero based integer
             Material mat = rend.GetComponent<Renderer>().material;
             var a = mat.color.a;   // retain the alpha component of existing color
             if (display_state == -1){
@@ -40,7 +41,7 @@ public class duct_cell_properties : MonoBehaviour
                 var c = mini_gland.GetComponent<mini_gland_properties>().dyn_data[ndiscs + ncvars*idx + display_state];
                 if (c == 0) mat.color = new Color(1,1,1,a);
                 else{
-                    var cl = Color.Lerp(Color.green, Color.red, (c - min) / (max - min));
+                    var cl = Color.Lerp(0.5f*clbase, clbase, (c - min) / (max - min));
                     cl.a = a;
                     mat.color = cl;
                 }

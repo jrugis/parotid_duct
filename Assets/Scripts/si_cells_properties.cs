@@ -20,6 +20,8 @@ public class si_cells_properties : MonoBehaviour
     public Text cMax_val;
     public Transform cMax_transform;
     public List<string> ion_props;
+    public List<Color> ion_colors;
+    public List<string> ion_color_bars;
     public int display_state;
     public KeyCode kcode; // set this in inspector GUI
     public float min, max;
@@ -27,6 +29,17 @@ public class si_cells_properties : MonoBehaviour
     void Start()
     {
         ion_props = new List<string>(){"Na", "K", "Cl", "HCO3", "pH"};
+        ion_colors = new List<Color>(){new Color(0.00f, 0.00f, 0.00f),  // NULL placeholder, for OFF state 
+                                       new Color(1.00f, 0.10f, 0.10f),  // first ion color 
+                                       new Color(1.00f, 0.37f, 0.20f),  // etc 
+                                       new Color(1.00f, 0.85f, 0.10f),  // 
+                                       new Color(0.10f, 0.80f, 0.10f),  // 
+                                       new Color(0.10f, 0.60f, 1.00f)}; // 
+        ion_color_bars = new List<string>(){"red_bar", // first ion color bar
+                                            "orange_bar", // etc
+                                            "yellow_bar", 
+                                            "green_bar", 
+                                            "blue_bar"};
         mini_gland = GameObject.Find("MiniGland");
 
         cBG = GameObject.Find("duct_cell_bg").GetComponent<Text>();
@@ -51,8 +64,7 @@ public class si_cells_properties : MonoBehaviour
             cBG.enabled = cColorBar.enabled = cText.enabled;
             cMin_image.enabled = cMin_val.enabled = cText.enabled;
             cMax_image.enabled = cMax_val.enabled = cText.enabled;
-            //min = (display_state == 4) ? 7.1f : 0f;    // for pH else ion concentration
-            //max = (display_state == 4) ? 8.4f : 160f;
+            if (display_state!= -1) cColorBar.texture = Resources.Load<Texture2D>(ion_color_bars[display_state]);
         }
 
         // display fluid color bar scale numbers

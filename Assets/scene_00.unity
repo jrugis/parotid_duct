@@ -7218,6 +7218,8 @@ MonoBehaviour:
   cMax_val: {fileID: 0}
   cMax_transform: {fileID: 0}
   ion_props: []
+  ion_colors: []
+  ion_color_bars: []
   display_state: -1
   kcode: 99
   min: 0
@@ -7922,7 +7924,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Texture: {fileID: 2800000, guid: 433686b1d4cb6401295e6bfee716b3d5, type: 3}
+  m_Texture: {fileID: 2800000, guid: fdd73413f9f6748ca8aa4a0c0aeccac2, type: 3}
   m_UVRect:
     serializedVersion: 2
     x: 0
