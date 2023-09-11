@@ -38,8 +38,8 @@ public class mini_gland_properties : MonoBehaviour
     public int tstep;             // current time step
     private int prev_tstep;       // previous time step
     public float[] sTimes;        // simulation time at each step
-    private int stim_on;          // stimulation ON time step
-    private int stim_off;         //       "     OFF   "   "
+    public int stim_on;          // stimulation ON time step
+    public int stim_off;         //       "     OFF   "   "
     public float simTime;         // current simulation time 
     private Text tText;           // simulation time display
     public float speed;           // playback speed
@@ -114,6 +114,9 @@ public class mini_gland_properties : MonoBehaviour
     // Note: Awake functions are executed before any Start functions
     void Awake()
     {
+        path = Application.dataPath + "/../../" + path;
+        a_path = Application.dataPath + "/../../" + a_path;
+
         // ********** get duct data ************
         if (!File.Exists(path))
         {
@@ -123,7 +126,7 @@ public class mini_gland_properties : MonoBehaviour
 
         // read in duct fixed data
         fs = new FileStream(path, FileMode.Open);
-        ndiscs = get_count(fs);                      // number of duct discs           
+        ndiscs = get_count(fs);                      // number of duct discs 
         disc_centers = get_coordinate(fs, ndiscs);   // disc centers
         disc_diameters = get_floats(fs, ndiscs);     // disc diameters
         disc_lengths = get_floats(fs, ndiscs);       // disc lengths
