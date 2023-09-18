@@ -28,6 +28,7 @@ public class mini_gland_properties : MonoBehaviour
     public int ndvars;           // number disc variables 
     public int ncvars;           // number of cell variables
     public int disc_idx;
+    public int flow_idx;
     public Vector3[] disc_centers;   // disc centers
     public float[] disc_diameters;   // disc diameters
     public float[] disc_lengths;     // disc lengths
@@ -106,7 +107,7 @@ public class mini_gland_properties : MonoBehaviour
         t += "\n" + dyn_data[disc_idx+2].ToString("G3");
         t += "\n" + dyn_data[disc_idx+3].ToString("G3");
         t += "\n" + dyn_data[disc_idx+4].ToString("G3");
-        t += "\n" + dyn_data[0].ToString("0#");
+        t += "\n" + dyn_data[flow_idx].ToString("0#");
         t += "\n\n" + stim;
         fText.text = t;
     }
@@ -145,7 +146,8 @@ public class mini_gland_properties : MonoBehaviour
         data_head = fs.Position;
         dyn_data = get_floats(fs, nvals);
         simTime = sTimes[0];
-        disc_idx = ndiscs + (ncvars * ncells);   // index into the disc data
+        disc_idx = ncvars * ncells;   // index into the disc data
+        flow_idx = disc_idx + (ndvars * ndiscs); // index into flow data
 
         // get display components 
         tText = GameObject.Find("time_display").GetComponent<Text>();

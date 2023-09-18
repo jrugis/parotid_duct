@@ -67,17 +67,17 @@ public class si_cells_properties : MonoBehaviour
             if (display_state!= -1) cColorBar.texture = Resources.Load<Texture2D>(ion_color_bars[display_state]);
         }
 
-        // display fluid color bar scale numbers
+        // display cell concentration color bar scale numbers
         if (cText.enabled & display_state!=-1){
             min = mini_gland.GetComponent<mini_gland_properties>().min_vals[display_state];
             max = mini_gland.GetComponent<mini_gland_properties>().max_vals[display_state];
             var txt = ion_props[display_state] + (display_state==4 ? "\n" : " (mM)\n");
-            txt += (display_state==4 ? max.ToString("#0.0") : max.ToString("#0")); // higher precision for pH
+            txt += (display_state==4 ? max.ToString("#0.0") : max.ToString("#0.0")); // higher precision for pH?
             txt += "\n\n\n\n\n";
             var mid = min+(max-min)/2f;
-            txt += (display_state==4 ? mid.ToString("#0.0") : mid.ToString("#0"));
+            txt += (display_state==4 ? mid.ToString("#0.0") : mid.ToString("#0.0"));
             txt += "\n\n\n\n\n";
-            txt += (display_state==4 ? min.ToString("#0.0") : min.ToString("#0"));
+            txt += (display_state==4 ? min.ToString("#0.0") : min.ToString("#0.0"));
             cText.text = txt;
         }
         else cText.text = "";
@@ -90,11 +90,11 @@ public class si_cells_properties : MonoBehaviour
         var ndiscs = mini_gland.GetComponent<mini_gland_properties>().ndiscs;
         var dyn_data = mini_gland.GetComponent<mini_gland_properties>().dyn_data;
 
-        var span_min = dyn_data[ndiscs + display_state];  // the first value, hopefully not a dead cell!
+        var span_min = dyn_data[display_state];  // the first value, hopefully not a dead cell!
         var span_max = span_min;
 
         for (int i = 0; i < ncells; i++){
-            var c = dyn_data[ndiscs + ncvars*i + display_state];
+            var c = dyn_data[ncvars*i + display_state];
             if (c == 0) continue;  // skip dead cells
             if (c < span_min) span_min = c;
             if (c > span_max) span_max = c;
@@ -102,10 +102,10 @@ public class si_cells_properties : MonoBehaviour
 
         var offset = 100f * (span_min-min) / (max-min);  // min marker position and value
         cMin_transform.localPosition = cMin_ref.localPosition + new Vector3(offset, 0f, 0f);
-        cMin_val.text = span_min.ToString("#0.0");
+        cMin_val.text = span_min.ToString("#0.00");
 
         offset = 100f * (span_max-min) / (max-min);      // max marker position and value    
         cMax_transform.localPosition = cMin_ref.localPosition + new Vector3(offset, 0f, 0f);
-        cMax_val.text = span_max.ToString("#0.0");
+        cMax_val.text = span_max.ToString("#0.00");
     }
 }

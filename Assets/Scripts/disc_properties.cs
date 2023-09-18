@@ -32,7 +32,8 @@ public class disc_properties : MonoBehaviour
         var idx = duct.GetComponent<duct_properties>().display_state;
 
         // visualise flow velocity
-        flow = mini_gland.GetComponent<mini_gland_properties>().dyn_data[disc_id];
+        var flow_idx = mini_gland.GetComponent<mini_gland_properties>().flow_idx;
+        flow = mini_gland.GetComponent<mini_gland_properties>().dyn_data[flow_idx + disc_id];
         velocity = flow / area;
         var dx = velocity * Time.deltaTime;
         //dx *= mini_gland.GetComponent<mini_gland_properties>().speed;
@@ -47,8 +48,8 @@ public class disc_properties : MonoBehaviour
         if (idx == -1) return;  // index -1 is for "not visible" state
         c = mini_gland.GetComponent<mini_gland_properties>().dyn_data[idx_vars + idx];
         var ncvars = mini_gland.GetComponent<mini_gland_properties>().ncvars;
-        var min = mini_gland.GetComponent<mini_gland_properties>().min_vals[ncvars+idx+1];
-        var max = mini_gland.GetComponent<mini_gland_properties>().max_vals[ncvars+idx+1];
+        var min = mini_gland.GetComponent<mini_gland_properties>().min_vals[ncvars+idx];
+        var max = mini_gland.GetComponent<mini_gland_properties>().max_vals[ncvars+idx];
         //var min = (idx == 4) ? 7.1f : 0f;    // for pH else ion concentration
         //var max = (idx == 4) ? 8.4f : 160f;
         mat.color = Color.Lerp(Color.green, Color.red, (c - min) / (max - min));

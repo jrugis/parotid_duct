@@ -38,7 +38,7 @@ public class duct_cell_properties : MonoBehaviour
                 mat.color = new Color(1,1,1,a);
             }
             else{
-                var c = mini_gland.GetComponent<mini_gland_properties>().dyn_data[ndiscs + ncvars*idx + display_state];
+                var c = mini_gland.GetComponent<mini_gland_properties>().dyn_data[ncvars*idx + display_state];
                 if (c == 0) mat.color = new Color(1,1,1,a);
                 else{
                     var cl = Color.Lerp(0.5f*clbase, clbase, (c - min) / (max - min));
