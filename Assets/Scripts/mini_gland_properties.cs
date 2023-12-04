@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 using UnityEngine.UI;
+//using UnityEngine.InputSystem;
 
 public class mini_gland_properties : MonoBehaviour
 {
@@ -171,7 +172,17 @@ public class mini_gland_properties : MonoBehaviour
         // read in acinus simulation data
         a_data_head = a_fs.Position;
         a_dyn_data = get_floats(a_fs, a_nnodes);
-        a_prev_tstep = -1;  // to force initial data display  
+        a_prev_tstep = -1;  // to force initial data display 
+
+        //Keyboard keyboard = InputSystem.GetDevice<Keyboard>();
+        //KeyboardState stateA = new KeyboardState();
+        //KeyboardState stateB = new KeyboardState();
+        //stateA.Press(Key.I);
+        //stateB.Release(Key.I);
+        //InputSystem.QueueStateEvent(keyboard, stateA);
+        //InputSystem.QueueStateEvent(keyboard, stateB);
+
+        
     }
    
     // simulation time stepping

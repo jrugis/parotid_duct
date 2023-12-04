@@ -2274,7 +2274,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   kcode: 100
-  state: 0
+  state: 3
 --- !u!1 &1227970284
 GameObject:
   m_ObjectHideFlags: 0
