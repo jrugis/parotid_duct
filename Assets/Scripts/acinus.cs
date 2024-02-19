@@ -42,6 +42,7 @@ public class acinus : MonoBehaviour
         for (int i = 0; i < points.GetLength(0); i++){
         //for (int i = 205; i < 305; i++){
             points[i].startSize = 10.0f * (c[i] - 0.075f);
+            //points[i].startSize = 10.0f * c[i];
         }
         //points[0].startSize = 30.0f * c[0];
         psystem.SetParticles(points, points.Length); // renders the nodes
